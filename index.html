@@ -10,9 +10,104 @@
 		<title>Mentor Api</title>
 	</head>
 	<body>
-		<div class="container-fluid">
-            
-        </div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+			<a class="navbar-brand" href="#">Mentor Allotment Portal</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link" href="#"
+							>Add Student <span class="sr-only">(current)</span></a
+						>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Add Mentor</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Assign Mentor</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Update Mentor</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">List Mentors</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8">
+					<h2 class="mt-5">Add Student</h2>
+					<form>
+						<div class="form-group">
+							<label for="studentId">Id</label>
+							<input
+								type="text"
+								class="form-control"
+								id="studentId"
+								aria-describedby="studentId"
+								placeholder="Enter student Id"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="studentName">Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="studentName"
+								aria-describedby="studentName"
+								placeholder="Enter student Name"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="studentClass">Class</label>
+							<input
+								type="text"
+								class="form-control"
+								id="studentClass"
+								aria-describedby="studentClass"
+								placeholder="Enter student Class"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="studentAge">Age</label>
+							<input
+								type="text"
+								class="form-control"
+								id="studentAge"
+								aria-describedby="studentAge"
+								placeholder="Enter student Age"
+							/>
+						</div>
+
+						<button
+							type="submit"
+							class="addStudent btn btn-primary"
+							style="width: 100%"
+						>
+							Submit
+						</button>
+					</form>
+					<div class="toast">
+						<div class="toast-header">Toast Header</div>
+						<div class="toast-body">Some text inside the toast body</div>
+					</div>
+				</div>
+				<div class="col-2"></div>
+			</div>
+		</div>
 
 		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,5 +117,6 @@
 
 		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="index.js"></script>
 	</body>
 </html>
