@@ -10,7 +10,7 @@
 		<title>Mentor Api</title>
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+		<nav class="navbar navbar-expand-xl navbar-dark bg-dark w-100 sticky-top">
 			<a class="navbar-brand" href="#">Mentor Allotment Portal</a>
 			<button
 				class="navbar-toggler"
@@ -25,19 +25,21 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
-					<li class="nav-item active">
-						<a class="nav-link" href="#"
+					<li class="nav-item">
+						<a class="nav-link" href="#addStudentSection"
 							>Add Student <span class="sr-only">(current)</span></a
 						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Add Mentor</a>
+						<a class="nav-link" href="#addMentorSection">Add Mentor</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Assign Mentor</a>
+						<a class="nav-link" href="#assignMentorSection"
+							>Assign/Update Mentor</a
+						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Update Mentor</a>
+						<a class="nav-link" href="#">Assign Student</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">List Mentors</a>
@@ -46,11 +48,11 @@
 			</div>
 		</nav>
 		<div class="container">
-			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
-					<h2 class="mt-5">Add Student</h2>
-					<form>
+			<div class="row" id="addStudentSection">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-8">
+					<u> <h2 class="mt-5 pt-2">Add Student</h2></u>
+					<form id="addStudentForm">
 						<div class="form-group">
 							<label for="studentId">Id</label>
 							<input
@@ -58,7 +60,7 @@
 								class="form-control"
 								id="studentId"
 								aria-describedby="studentId"
-								placeholder="Enter student Id"
+								placeholder="Enter Student Id"
 							/>
 						</div>
 						<div class="form-group">
@@ -68,7 +70,7 @@
 								class="form-control"
 								id="studentName"
 								aria-describedby="studentName"
-								placeholder="Enter student Name"
+								placeholder="Enter Student Name"
 							/>
 						</div>
 						<div class="form-group">
@@ -78,7 +80,7 @@
 								class="form-control"
 								id="studentClass"
 								aria-describedby="studentClass"
-								placeholder="Enter student Class"
+								placeholder="Enter Student Class"
 							/>
 						</div>
 						<div class="form-group">
@@ -88,25 +90,142 @@
 								class="form-control"
 								id="studentAge"
 								aria-describedby="studentAge"
-								placeholder="Enter student Age"
+								placeholder="Enter Student Age"
 							/>
 						</div>
 
 						<button
 							type="submit"
-							class="addStudent btn btn-primary"
+							class="addStudent btn btn-dark"
 							style="width: 100%"
 						>
 							Submit
 						</button>
+						<div
+							aria-live="polite"
+							aria-atomic="true"
+							class="d-flex justify-content-center align-items-center"
+							style="min-height: 200px"
+						>
+							<div class="toast studentToast" data-autohide="false">
+								<div class="toast-header">
+									<strong class="mr-auto text-primary">Notification</strong>
+									<small class="text-muted">Now</small>
+									<button
+										type="button"
+										class="ml-2 mb-1 close"
+										data-dismiss="toast"
+									>
+										&times;
+									</button>
+								</div>
+								<div class="toast-body">New Student Added.</div>
+							</div>
+						</div>
 					</form>
-					<div class="toast">
-						<div class="toast-header">Toast Header</div>
-						<div class="toast-body">Some text inside the toast body</div>
-					</div>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-lg-2"></div>
 			</div>
+			<hr />
+			<div class="row" id="addMentorSection">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-8">
+					<u> <h2 class="mt-5 pt-2">Add Mentor</h2></u>
+					<form id="addMentorForm">
+						<div class="form-group">
+							<label for="mentorId">Id</label>
+							<input
+								type="text"
+								class="form-control"
+								id="mentorId"
+								aria-describedby="mentorId"
+								placeholder="Enter mentor Id"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="mentorName">Name</label>
+							<input
+								type="text"
+								class="form-control"
+								id="mentorName"
+								aria-describedby="mentorName"
+								placeholder="Enter mentor Name"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="mentorSubject">Subject</label>
+							<input
+								type="text"
+								class="form-control"
+								id="mentorSubject"
+								aria-describedby="mentorSubject"
+								placeholder="Enter mentor subject"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="mentorAge">Age</label>
+							<input
+								type="text"
+								class="form-control"
+								id="mentorAge"
+								aria-describedby="mentorAge"
+								placeholder="Enter mentor Age"
+							/>
+						</div>
+
+						<button
+							type="submit"
+							class="addMentor btn btn-dark"
+							style="width: 100%"
+						>
+							Submit
+						</button>
+						<div
+							aria-live="polite"
+							aria-atomic="true"
+							class="d-flex justify-content-center align-items-center"
+							style="min-height: 200px"
+						>
+							<div class="toast mentorToast" data-autohide="false">
+								<div class="toast-header">
+									<strong class="mr-auto text-primary">Notification</strong>
+									<small class="text-muted">Now</small>
+									<button
+										type="button"
+										class="ml-2 mb-1 close"
+										data-dismiss="toast"
+									>
+										&times;
+									</button>
+								</div>
+								<div class="toast-body">New Mentor Added.</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-lg-2"></div>
+			</div>
+			<hr />
+			<div class="row" id="assignMentorSection">
+				<div class="col-lg-12">
+					<u><h1 class="mt-4 pt-2">Student Details</h1></u>
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>Class</th>
+								<th>Age</th>
+								<th>Mentor</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody id="assignMentortbody"></tbody>
+						<!-- Modal -->
+					</table>
+				</div>
+			</div>
+			<hr />
 		</div>
 
 		<!-- jQuery library -->

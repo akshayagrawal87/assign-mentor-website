@@ -1,4 +1,28 @@
-let createStudent = async (body) => {
+const mentorModalVar = `<div id="mentorsModal" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Select A Mentor</h4>
+									<button type="button" class="close" data-dismiss="modal" id="closeMentorModalIcon">
+										&times;
+									</button>
+								</div>
+								<div class="modal-body" id="mentorModalBody"></div>
+								<div class="modal-footer">
+									<button
+										type="button"
+										class="btn btn-dark"
+                                        data-dismiss="modal"
+                                        id="closeMentorModal"
+									>
+										Close
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>`;
+
+const createStudent = async (body) => {
 	let url = "https://assign-mentor-api.herokuapp.com/student";
 
 	const response = await fetch(url, {
@@ -12,6 +36,154 @@ let createStudent = async (body) => {
 	let data = await response.json();
 
 	console.log(data);
+};
+
+const createMentor = async (body) => {
+	let url = "https://assign-mentor-api.herokuapp.com/mentor";
+
+	const response = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify(body),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+	let data = await response.json();
+
+	console.log(data);
+};
+
+const allocateMentor = async (mentorName, id) => {
+	console.log(mentorName, id);
+	let updateMentorUrl =
+		"https://assign-mentor-api.herokuapp.com/student/update";
+
+	let body = {
+		studentId: parseInt(id),
+		mentor: mentorName,
+	};
+	console.log(body);
+
+	const response = await fetch(updateMentorUrl, {
+		method: "PATCH",
+		body: JSON.stringify(body),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+	let data = await response.json();
+	window.location.reload();
+	console.log(data);
+};
+
+const createMentorModal = async (id) => {
+	let getMentorUrl = "https://assign-mentor-api.herokuapp.com/mentor";
+
+	const mentorsData = await fetch(getMentorUrl);
+
+	const mentors = await mentorsData.json();
+
+	let mentorModalBody = document.querySelector("#mentorModalBody");
+
+	mentorModalBody.innerHTML = "";
+
+	for (let data of mentors) {
+		let mentorButton = document.createElement("button");
+
+		mentorButton.classList.add("addMentorButton");
+
+		mentorButton.classList.add("btn", "btn-dark", "w-100", "mt-2");
+
+		mentorButton.setAttribute("data-name", data.name);
+
+		mentorButton.innerText = data.name;
+
+		mentorModalBody.appendChild(mentorButton);
+	}
+
+	document.querySelectorAll(".addMentorButton").forEach((e) =>
+		e.addEventListener("click", function () {
+			// Here, `this` refers to the element the event was hooked on
+			console.log(this.dataset.name);
+			allocateMentor(this.dataset.name, id);
+		})
+	);
+};
+
+const assignMentor = async (id) => {
+	console.log(id);
+	let studentDetailUrl = `https://assign-mentor-api.herokuapp.com/student/${id}`;
+	let updateMentorUrl = "https://assign-mentor-api.herokuapp.com/student";
+
+	createMentorModal(id);
+
+	$("#mentorsModal").modal("show");
+};
+
+const getStudents = async () => {
+	let url = "https://assign-mentor-api.herokuapp.com/student";
+
+	const response = await fetch(url);
+
+	let data = await response.json();
+
+	let tbody = document.querySelector("#assignMentortbody");
+
+	for (let a of data) {
+		let tr = document.createElement("tr");
+
+		let studentId = document.createElement("td");
+		studentId.innerText = a.studentId;
+
+		let name = document.createElement("td");
+		name.innerText = a.name;
+
+		let batch = document.createElement("td");
+		batch.innerText = a.class;
+
+		let age = document.createElement("td");
+		age.innerText = a.age;
+
+		let changer = document.createElement("td");
+
+		let mentor = document.createElement("td");
+
+		if (a.mentor === null || a.mentor === undefined)
+			mentor.innerText = "Not Assigned";
+		else mentor.innerText = a.mentor;
+
+		tr.appendChild(studentId);
+		tr.appendChild(name);
+		tr.appendChild(batch);
+		tr.appendChild(age);
+		tr.appendChild(mentor);
+		tr.appendChild(changer);
+
+		let mentorChange = document.createElement("button");
+		mentorChange.classList.add("mentorChangeButton");
+		mentorChange.classList.add("btn", "btn-dark");
+		mentorChange.innerText = "Assign/Update Mentor";
+		mentorChange.setAttribute("data-id", a.studentId);
+
+		changer.appendChild(mentorChange);
+
+		tbody.appendChild(tr);
+
+		let mentorModal = document.createElement("div");
+		mentorModal.classList.add("modalMentorElement");
+		mentorModal.innerHTML = mentorModalVar;
+
+		let assingMentorSection = document.querySelector("#assignMentorSection");
+		assingMentorSection.appendChild(mentorModal);
+	}
+
+	document.querySelectorAll(".mentorChangeButton").forEach((e) =>
+		e.addEventListener("click", function () {
+			assignMentor(this.dataset.id);
+		})
+	);
 };
 
 (async () => {
@@ -32,9 +204,32 @@ let createStudent = async (body) => {
 		console.log(data);
 		await createStudent(data);
 		$(document).ready(function () {
-			$("#myBtn").click(function () {
-				$(".toast").toast("show");
-			});
+			$(".studentToast").toast("show");
 		});
+		document.getElementById("addStudentForm").reset();
 	});
+
+	let addMentor = document.querySelector(".addMentor");
+	addMentor.addEventListener("click", async (e) => {
+		e.preventDefault();
+		let id = document.getElementById("mentorId").value;
+		let name = document.getElementById("mentorName").value;
+		let subject = document.getElementById("mentorSubject").value;
+		let age = document.getElementById("mentorAge").value;
+
+		let data = {
+			mentorId: parseInt(id),
+			name: name,
+			subject: subject,
+			age: age,
+		};
+		console.log(data);
+		await createMentor(data);
+		$(document).ready(function () {
+			$(".mentorToast").toast("show");
+		});
+		document.getElementById("addMentorForm").reset();
+	});
+
+	getStudents();
 })();
