@@ -176,17 +176,19 @@ const createStudentModal = async (id) => {
 	studentModalBody.innerHTML = "";
 
 	for (let data of student) {
-		let studentButton = document.createElement("button");
+		if (data.mentor === null) {
+			let studentButton = document.createElement("button");
 
-		studentButton.classList.add("addStudentButton");
+			studentButton.classList.add("addStudentButton");
 
-		studentButton.classList.add("btn", "btn-dark", "w-100", "mt-2");
+			studentButton.classList.add("btn", "btn-dark", "w-100", "mt-2");
 
-		studentButton.setAttribute("data-name", data.name);
+			studentButton.setAttribute("data-name", data.name);
 
-		studentButton.innerText = data.name;
+			studentButton.innerText = data.name;
 
-		studentModalBody.appendChild(studentButton);
+			studentModalBody.appendChild(studentButton);
+		}
 	}
 
 	document.querySelectorAll(".addStudentButton").forEach((e) =>
