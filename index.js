@@ -2,6 +2,15 @@ $(".nav-link").on("click", function () {
 	$(".navbar-collapse").collapse("hide");
 });
 
+$(".border").hover(
+	function () {
+		$(this).addClass("shadow-lg").css("cursor", "pointer");
+	},
+	function () {
+		$(this).removeClass("shadow-lg");
+	}
+);
+
 const mentorModalVar = `<div id="mentorsModal" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
