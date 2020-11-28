@@ -1,3 +1,7 @@
+$(".nav-link").on("click", function () {
+	$(".navbar-collapse").collapse("hide");
+});
+
 const mentorModalVar = `<div id="mentorsModal" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
