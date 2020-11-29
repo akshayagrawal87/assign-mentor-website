@@ -91,6 +91,37 @@ const createMentor = async (body) => {
 	console.log(data);
 };
 
+const createAllotment = async () => {
+	let url = "https://assign-mentor-api.herokuapp.com/mentor/allotment";
+
+	const response = await fetch(url);
+
+	let allotmentData = await response.json();
+
+	console.log(allotmentData);
+
+	let tbody = document.querySelector("#allotmentbody");
+
+	for (let a of allotmentData) {
+		let tr = document.createElement("tr");
+
+		let mentorName = document.createElement("td");
+		mentorName.innerText = a.mentor;
+
+		let subject = document.createElement("td");
+		subject.innerText = a.subject;
+
+		let studentNames = document.createElement("td");
+		studentNames.innerText = [...a.studentNames];
+
+		tr.appendChild(mentorName);
+		tr.appendChild(subject);
+		tr.appendChild(studentNames);
+
+		tbody.appendChild(tr);
+	}
+};
+
 const allocateMentor = async (mentorName, id) => {
 	console.log(mentorName, id);
 	let updateMentorUrl =
@@ -397,4 +428,5 @@ const getMentors = async () => {
 
 	getStudents();
 	getMentors();
+	createAllotment();
 })();
